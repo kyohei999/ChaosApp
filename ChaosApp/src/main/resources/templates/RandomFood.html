@@ -12,11 +12,11 @@
 		<h1 style="position: relative; top: 15px; left: 20px;">今週の献立</h1>
 		<br>
 		<form id="actionType" action="/RandomfoodController" method="get" >
-			<input type="submit" class="btn btn-light" id="menuButton" value="献立再表示" style="width: 1200px; position: relative; left: 20px;">
+			<input type="submit" class="btn btn-light" id="menuButton" value="献立再表示" style="width: 700px; position: relative; left: 20px;">
 		</form>
 		<br>
 		<div class="d-flex justify-content-start">
-			<table th:each="food : ${foodList}" style="table-layout: fixed; width: 180px;" class="table table-hover table table-bordered border-primary" border="1">
+			<table th:each="food : ${foodList}" style="table-layout: fixed; width: 100px;" class="table table-hover table table-bordered border-primary" border="1">
 				<tr class="table-warning" >
 					<th colspan="1" th:text="${food.key}"></th>
 				</tr>
@@ -27,7 +27,6 @@
 				</tr>
 			</table>
 		</div>
-		<a href="http://localhost:8080/FindAll" style="position: relative; left: 1100px;">料理一覧表へ戻る</a>
 		<br>
 		<br>
 		<p>アタリ = <font size="5" color="yellow">■</font></p>
