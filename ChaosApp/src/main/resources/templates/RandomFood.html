@@ -1,0 +1,47 @@
+
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<title>今週の献立</title>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<h1 style="position: relative; top: 15px; left: 20px;">今週の献立</h1>
+		<br>
+		<form id="actionType" action="/RandomfoodController" method="get" >
+			<input type="submit" class="btn btn-light" id="menuButton" value="献立再表示" style="width: 1200px; position: relative; left: 20px;">
+		</form>
+		<br>
+		<div class="d-flex justify-content-start">
+			<table th:each="food : ${foodList}" style="table-layout: fixed; width: 180px;" class="table table-hover table table-bordered border-primary" border="1">
+				<tr class="table-warning" >
+					<th colspan="1" th:text="${food.key}"></th>
+				</tr>
+				<tr th:each="food : ${food.value}">
+					<th:block th:if="${food.food}">
+						<td style="word-wrap:break-word;" class="type_id" th:value="${food.type_id}" th:text="${food.food}"></td>
+					</th:block>
+				</tr>
+			</table>
+		</div>
+		<a href="http://localhost:8080/FindAll" style="position: relative; left: 1100px;">料理一覧表へ戻る</a>
+		<br>
+		<br>
+		<p>アタリ = <font size="5" color="yellow">■</font></p>
+		<p>ハズレ = <font size="5" color="#C2D4F2">■</font></p>
+		<script>
+			for (let i = 0; i < $(".type_id").length; i++) {
+				let typeId = $(".type_id").eq(i).attr("value");
+
+				if (typeId == 4) {
+					$(".type_id").eq(i).css("background-color", "yellow");
+				} else if (typeId == 5) {
+					$(".type_id").eq(i).css("background-color", "#C2D4F2");
+				}
+			}
+		</script>
+	</body>
+</html>
