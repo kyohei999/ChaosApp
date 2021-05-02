@@ -140,7 +140,10 @@ public class RandomFoodService {
 		foodMap.put("クリームシチュー", 3);
 		foodMap.put("豚汁", 3);
 		foodMap.put("けんちん汁", 3);
-		foodMap.put("オニオンスープ", 3);
+		foodMap.put("コーラ汁", 3);
+		foodMap.put("骨煮込みスープ", 3);
+		foodMap.put("ツバメの巣ープ", 3);
+		foodMap.put("リンスープ", 3);
 
 		foodMap.put("ハーゲンダッツ", 4);
 		foodMap.put("チョコ", 4);
@@ -163,6 +166,10 @@ public class RandomFoodService {
 		foodMap.put("飴一粒", 5);
 		foodMap.put("ポテチ一枚", 5);
 		foodMap.put("飯抜き", 5);
+		foodMap.put("キャットフード", 5);
+		foodMap.put("ドッグフード", 5);
+		foodMap.put("うまい棒", 5);
+		foodMap.put("たくわん一切れ", 5);
 
 
 		return foodMap;

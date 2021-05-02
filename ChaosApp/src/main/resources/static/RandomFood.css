@@ -1,0 +1,6 @@
+@media screen and (max-width: 480px) {
+	#foodTable {
+		display: flex;
+		flex-wrap: wrap;
+	}
+}
