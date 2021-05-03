@@ -51,7 +51,7 @@ public class RandomFoodService {
 				rundomFoodList.add(JudgList.get(j).get(randomFood));
 			}
 
-			int hit = random.nextInt(30);
+			int hit = random.nextInt(20);
 
 			if (hit == 0) {
 				rundomFoodList.add(hitFoodList.get(0));
@@ -128,6 +128,7 @@ public class RandomFoodService {
 		foodMap.put("プチトマトのマリネ", 2);
 		foodMap.put("きんぴら炒め", 2);
 		foodMap.put("ブロッコリーの胡麻和え", 2);
+		foodMap.put("ホルモン炒め", 2);
 
 		foodMap.put("オニオンスープ", 3);
 		foodMap.put("キノコスープ", 3);
