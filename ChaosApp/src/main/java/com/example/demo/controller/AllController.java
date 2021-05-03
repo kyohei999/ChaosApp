@@ -26,7 +26,7 @@ public class AllController {
 	@GetMapping("CatController")
 	public String catPictureshow(Model model) {
 		String chaos = "にゃおにゃお！！！";
-		model.addAttribute("Chaos", chaos);
+		//model.addAttribute("Chaos", chaos);
 		return "Cat";
 	}
 
