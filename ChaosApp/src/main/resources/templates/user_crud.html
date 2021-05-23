@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div id="userCrud">
-		<table style="width: 200px" class="table table-hover" border="1">
+		<table style="width: 350px" class="table table-hover" border="1">
 				<tr>
 					<th>ID</th>
 					<th>名前</th>
@@ -20,6 +20,7 @@
 					<td>{{ user.id }}</td>
 					<td>{{ user.name }}</td>
 					<td>{{ user.age }}</td>
+					<td><input type="submit" class="btn btn-light" @click="deleteUserData(user.id)" value="削除"></td>
 				</tr>
 		</table>
 		<div class="form-group col-2">
@@ -72,6 +73,20 @@
 				self.userId = "";
 				self.userName = "";
 				self.userAge = "";
+			},
+			deleteUserData:function(userId) {
+				let self = this;
+				let params = new URLSearchParams();
+				console.log(userId);
+				params.append("userId", userId);
+				axios
+				.post("/deleteUser", params)
+				.then(function(response) {
+			    self.users = response.data.users;
+				})
+				.catch(function(error) {
+					console.log("通信失敗。", error)
+				});
 			}
 		}
 	})

@@ -32,4 +32,13 @@ public class JsonResponseController {
 
 		return userService.getUser();
 	}
+
+	@PostMapping("deleteUser")
+	public HashMap<String, ArrayList<UserDto>> deleteUser(@RequestParam("userId") String userId) throws IOException {
+		System.out.println(userId);
+
+		userService.deleteUser(userId);
+
+		return userService.getUser();
+	}
 }
