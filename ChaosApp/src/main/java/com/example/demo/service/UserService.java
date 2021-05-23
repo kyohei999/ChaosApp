@@ -26,12 +26,9 @@ public class UserService {
 
 	public HashMap<String, ArrayList<UserDto>> getUser() throws IOException {
 		FileInputStream fileInput;
-		fileInput = new FileInputStream(
-				"C:\\Users\\kmvsm\\Documents\\chaosapp\\ChaosApp\\src\\main\\java\\com\\example\\demo\\service\\users.csv");
-
+		fileInput = new FileInputStream("src/main/resources/json_users.csv");
 		InputStreamReader inputStream = new InputStreamReader(fileInput);
 		BufferedReader br = new BufferedReader(inputStream);
-
 		ArrayList<UserDto> userList = new ArrayList<UserDto>();
 		String line;
 		while ((line = br.readLine()) != null) {
@@ -42,21 +39,18 @@ public class UserService {
 			userdto.setAge(userData[2]);
 			userList.add(userdto);
 		}
-		br.close();
 
 		HashMap<String, ArrayList<UserDto>> jsonUser = new HashMap<String, ArrayList<UserDto>>();
 		jsonUser.put("users", userList);
-
+		br.close();
 		return jsonUser;
 	}
 
 	public void insertUser(String userId, String userName, String userAge) {
 		FileWriter fw = null;
 		try {
-			File file = new File(
-					"C:\\Users\\kmvsm\\Documents\\chaosapp\\ChaosApp\\src\\main\\java\\com\\example\\demo\\service\\users.csv");
+			File file = new File("src/main/resources/json_users.csv");
 			fw = new FileWriter(file, true);
-
 			fw.write(userId + COMMA);
 			fw.write(userName + COMMA);
 			fw.write(userAge + COMMA);
@@ -73,7 +67,6 @@ public class UserService {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	public void deleteUser(String userId) {
@@ -82,11 +75,9 @@ public class UserService {
 			//ファイルの読み込み、編集をを行い、再書き込み書き込みを行う
 			//DB使用しないと実装が困難
 			FileInputStream fileInput;
-			fileInput = new FileInputStream(
-					"C:\\Users\\kmvsm\\Documents\\chaosapp\\ChaosApp\\src\\main\\java\\com\\example\\demo\\service\\users.csv");
+			fileInput = new FileInputStream("src/main/resources/json_users.csv");
 			InputStreamReader inputStream = new InputStreamReader(fileInput);
 			BufferedReader br = new BufferedReader(inputStream);
-
 			String line;
 			String[] userData = null;
 
@@ -97,9 +88,7 @@ public class UserService {
 				if (userData[0].equals(userId)) {
 					continue;
 				}
-				System.out.println(userData[0]);
-				System.out.println(userData[1]);
-				System.out.println(userData[2]);
+
 				userList.add(userData[0]);
 				userList.add(userData[1]);
 				userList.add(userData[2]);
@@ -107,8 +96,7 @@ public class UserService {
 			br.close();
 
 			//書き込み
-			File file = new File(
-					"C:\\Users\\kmvsm\\Documents\\chaosapp\\ChaosApp\\src\\main\\java\\com\\example\\demo\\service\\users.csv");
+			File file = new File("src/main/resources/json_users.csv");
 			fw = new FileWriter(file);
 			for (int i = 0; i < userList.size(); i+=3 ) {
 				fw.write(userList.get(i) + COMMA);
