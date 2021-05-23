@@ -9,12 +9,14 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-	<div id="userCrud">
-		<table style="width: 350px" class="table table-hover" border="1">
+	<h4 align="center">※空白で登録するとバグるので気を付けてください※</h4>
+	<div id="userCrud" align="center">
+		<table style="width: 450px" class="table table-hover" border="1">
 				<tr>
 					<th>ID</th>
-					<th>名前</th>
-					<th>年齢</th>
+					<th>ペットのなまえ</th>
+					<th>ペットのねんれい</th>
+					<th>削除ボタン</th>
 				</tr>
 				<tr v-for="user in users">
 					<td>{{ user.id }}</td>
@@ -23,14 +25,15 @@
 					<td><input type="submit" class="btn btn-light" @click="deleteUserData(user.id)" value="削除"></td>
 				</tr>
 		</table>
-		<div class="form-group col-2">
-			<label for="user_id">ID</label>
-			<input v-model="userId" placeholder="ID入力">
-			<label for="user_name">名前</label>
-			<input v-model="userName" placeholder="氏名入力">
-			<label for="user_age">年齢</label>
-			<input v-model="userAge" placeholder="年齢入力">
-			<button type="submit" v-on:click="insertUserData" >登録</button>
+		<div class="form-group col-2" style="position: relative; right: 150px;">
+			<input v-model="userId" placeholder="ID">
+			<br>
+			<br>
+			<input v-model="userName" placeholder="なまえ">
+			<br>
+			<br>
+			<input v-model="userAge" placeholder="ねんれい">
+			<button type="submit" v-on:click="insertUserData" style="position: relative; right: 40px;">登録</button>
 		</div>
 	</div>
 	<script>

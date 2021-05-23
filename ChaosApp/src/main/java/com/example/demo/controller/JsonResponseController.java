@@ -28,6 +28,11 @@ public class JsonResponseController {
 	public HashMap<String, ArrayList<UserDto>> insertUser(@RequestParam("userId") String userId,
 			@RequestParam("userName") String userName,
 			@RequestParam("userAge") String userAge) throws IOException {
+
+		System.out.println(userId);
+		System.out.println(userName);
+		System.out.println(userAge);
+
 		userService.insertUser(userId, userName, userAge);
 		return userService.getUser();
 	}
