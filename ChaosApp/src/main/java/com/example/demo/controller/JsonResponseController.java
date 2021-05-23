@@ -20,6 +20,7 @@ public class JsonResponseController {
 
 	@GetMapping("getUser")
 	public HashMap<String, ArrayList<UserDto>> getUser() throws IOException {
+		System.out.println(userService.getUser());
 		return userService.getUser();
 	}
 
@@ -27,18 +28,13 @@ public class JsonResponseController {
 	public HashMap<String, ArrayList<UserDto>> insertUser(@RequestParam("userId") String userId,
 			@RequestParam("userName") String userName,
 			@RequestParam("userAge") String userAge) throws IOException {
-
 		userService.insertUser(userId, userName, userAge);
-
 		return userService.getUser();
 	}
 
 	@PostMapping("deleteUser")
 	public HashMap<String, ArrayList<UserDto>> deleteUser(@RequestParam("userId") String userId) throws IOException {
-		System.out.println(userId);
-
 		userService.deleteUser(userId);
-
 		return userService.getUser();
 	}
 }

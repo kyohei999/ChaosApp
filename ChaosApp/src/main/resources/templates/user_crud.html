@@ -55,21 +55,20 @@
 		},
 		methods:{
 			insertUserData:function() {
-				let params = new URLSearchParams();
 				let self = this;
-
+				let params = new URLSearchParams();
 				params.append("userId", self.userId);
 				params.append("userName", self.userName);
 				params.append("userAge", self.userAge);
+
 				axios
 				.post("/insertUser", params)
 				.then(function(response) {
-			    self.users = response.data.users;
+					self.users = response.data.users;
 				})
 				.catch(function(error) {
 					console.log("通信失敗。", error)
 				});
-				//this.users.push();
 				self.userId = "";
 				self.userName = "";
 				self.userAge = "";
@@ -77,12 +76,13 @@
 			deleteUserData:function(userId) {
 				let self = this;
 				let params = new URLSearchParams();
-				console.log(userId);
 				params.append("userId", userId);
+
 				axios
 				.post("/deleteUser", params)
 				.then(function(response) {
-			    self.users = response.data.users;
+					self.users = response.data.users;
+
 				})
 				.catch(function(error) {
 					console.log("通信失敗。", error)
