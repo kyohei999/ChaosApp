@@ -10,6 +10,4 @@ public class RandomWordService {
 
 		return randomWord;
 	}
-
-
 }

@@ -23,6 +23,11 @@ public class AllController {
 	@Autowired
 	RandomFoodService randomFoodService;
 
+	@GetMapping("UserController")
+	public String getUser(Model model) {
+		return "user_crud";
+	}
+
 	@GetMapping("CatController")
 	public String catPictureshow(Model model) {
 		String chaos = "にゃおにゃお！！！";
@@ -55,5 +60,4 @@ public class AllController {
 		model.addAttribute("typeList", typeList);
 		return "RandomFood";
 	}
-
 }

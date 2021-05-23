@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>VueSample</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://www.promisejs.org/polyfills/promise-7.0.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="userCrud">
+		<table style="width: 200px" class="table table-hover" border="1">
+				<tr>
+					<th>ID</th>
+					<th>名前</th>
+					<th>年齢</th>
+				</tr>
+				<tr v-for="user in users">
+					<td>{{ user.id }}</td>
+					<td>{{ user.name }}</td>
+					<td>{{ user.age }}</td>
+				</tr>
+		</table>
+		<div class="form-group col-2">
+			<label for="user_id">ID</label>
+			<input v-model="userId" placeholder="ID入力">
+			<label for="user_name">名前</label>
+			<input v-model="userName" placeholder="氏名入力">
+			<label for="user_age">年齢</label>
+			<input v-model="userAge" placeholder="年齢入力">
+			<button type="submit" v-on:click="insertUserData" >登録</button>
+		</div>
+	</div>
+	<script>
+	const userCrud = new Vue({
+		el: "#userCrud",
+		data: {
+			users: [],
+			userId: "",
+			userName: "",
+			userAge: ""
+		},
+		created() {
+			let self = this;
+			axios
+			.get("/getUser")
+			.then(function(response) {
+			    self.users = response.data.users;
+			})
+			.catch(function(error) {
+			    console.log("通信失敗。", error);
+			})
+		},
+		methods:{
+			insertUserData:function() {
+				let params = new URLSearchParams();
+				let self = this;
+
+				params.append("userId", self.userId);
+				params.append("userName", self.userName);
+				params.append("userAge", self.userAge);
+				axios
+				.post("/insertUser", params)
+				.then(function(response) {
+			    self.users = response.data.users;
+				})
+				.catch(function(error) {
+					console.log("通信失敗。", error)
+				});
+				//this.users.push();
+				self.userId = "";
+				self.userName = "";
+				self.userAge = "";
+			}
+		}
+	})
+	</script>
+</body>
+</html>
