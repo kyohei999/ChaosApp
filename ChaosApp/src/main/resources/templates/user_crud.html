@@ -9,8 +9,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-	<h4 align="center">※空白で登録するとバグるので気を付けてください※</h4>
 	<div id="userCrud" align="center">
+		<h3 ref="personId" style="color: #ff5353;">[[${userId}]]</h3>
 		<table style="width: 450px" class="table table-hover" border="1">
 				<tr>
 					<th>ID</th>
@@ -19,7 +19,7 @@
 					<th>削除ボタン</th>
 				</tr>
 				<tr v-for="user in users">
-					<td>{{ user.id }}</td>
+					<td><a href="#" @click="updataUserData(user.id)">{{ user.id }}</a></td>
 					<td>{{ user.name }}</td>
 					<td>{{ user.age }}</td>
 					<td><input type="submit" class="btn btn-light" @click="deleteUserData(user.id)" value="削除"></td>
@@ -45,10 +45,16 @@
 			userName: "",
 			userAge: ""
 		},
-		created() {
+		mounted() {
 			let self = this;
+			let params = new URLSearchParams();
+			let personId = self.$refs.personId.textContent;
+			params.append("personId", personId);
+
+			console.log(personId);
+			//getではなくpostだと通信成功したけど理由分からない
 			axios
-			.get("/getUser")
+			.post("/getUser", params)
 			.then(function(response) {
 			    self.users = response.data.users;
 			})
@@ -60,6 +66,8 @@
 			insertUserData:function() {
 				let self = this;
 				let params = new URLSearchParams();
+				let personId = self.$refs.personId.textContent;
+				params.append("personId", personId);
 				params.append("userId", self.userId);
 				params.append("userName", self.userName);
 				params.append("userAge", self.userAge);
@@ -67,8 +75,12 @@
 				axios
 				.post("/insertUser", params)
 				.then(function(response) {
-					self.users = response.data.users;
-				})
+					if (!(response.data.users == null)) {
+						self.users = response.data.users;
+					} else {
+						alert("ID、氏名、もしくは年齢が空白です");
+						console.log("ID、氏名、もしくは年齢が空白です");
+					}				})
 				.catch(function(error) {
 					console.log("通信失敗。", error)
 				});
@@ -79,6 +91,8 @@
 			deleteUserData:function(userId) {
 				let self = this;
 				let params = new URLSearchParams();
+				let personId = self.$refs.personId.textContent;
+				params.append("personId", personId);
 				params.append("userId", userId);
 
 				axios

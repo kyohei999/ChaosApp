@@ -24,9 +24,9 @@ public class UserService {
 	/** 改行コード */
 	private static final String NEW_LINE = "\r\n";
 
-	public HashMap<String, ArrayList<UserDto>> getUser() throws IOException {
+	public HashMap<String, ArrayList<UserDto>> getUser(String personId) throws IOException {
 		FileInputStream fileInput;
-		fileInput = new FileInputStream("src/main/resources/json_users.csv");
+		fileInput = new FileInputStream("src/main/resources/userData/" + personId + "_json.csv");
 		InputStreamReader inputStream = new InputStreamReader(fileInput);
 		BufferedReader br = new BufferedReader(inputStream);
 		ArrayList<UserDto> userList = new ArrayList<UserDto>();
@@ -46,10 +46,10 @@ public class UserService {
 		return jsonUser;
 	}
 
-	public void insertUser(String userId, String userName, String userAge) {
+	public void insertUser(String userId, String userName, String userAge, String personId) {
 		FileWriter fw = null;
 		try {
-			File file = new File("src/main/resources/json_users.csv");
+			File file = new File("src/main/resources/userData/" + personId + "_json.csv");
 			fw = new FileWriter(file, true);
 			fw.write(userId + COMMA);
 			fw.write(userName + COMMA);
@@ -69,13 +69,13 @@ public class UserService {
 		}
 	}
 
-	public void deleteUser(String userId) {
+	public void deleteUser(String userId, String personId) {
 		FileWriter fw = null;
 		try {
 			//ファイルの読み込み、編集をを行い、再書き込み書き込みを行う
 			//DB使用しないと実装が困難
 			FileInputStream fileInput;
-			fileInput = new FileInputStream("src/main/resources/json_users.csv");
+			fileInput = new FileInputStream("src/main/resources/userData/" + personId + "_json.csv");
 			InputStreamReader inputStream = new InputStreamReader(fileInput);
 			BufferedReader br = new BufferedReader(inputStream);
 			String line;
@@ -96,7 +96,7 @@ public class UserService {
 			br.close();
 
 			//書き込み
-			File file = new File("src/main/resources/json_users.csv");
+			File file = new File("src/main/resources/userData/" + personId + "_json.csv");
 			fw = new FileWriter(file);
 			for (int i = 0; i < userList.size(); i+=3 ) {
 				fw.write(userList.get(i) + COMMA);

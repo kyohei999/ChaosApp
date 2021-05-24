@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<title>新規登録画面</title>
+		<script src="https://www.promisejs.org/polyfills/promise-7.0.4.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<div id="entryUser" class="form-group col-2">
+			<input v-model="userId" placeholder="ID">
+			<br>
+			<br>
+			<input v-model="userPass" placeholder="パスワード">
+			<br>
+			<br>
+			<input v-model="userName" placeholder="なまえ">
+			<button type="submit" v-on:click="entryUserInfo">登録</button>
+		</div>
+		<script>
+		const entryUser = new Vue({
+			el: "#entryUser",
+			data: {
+				userId: "",
+				userPass: "",
+				userName: ""
+			},
+			methods:{
+				entryUserInfo:function() {
+					let self = this;
+					let params = new URLSearchParams();
+					params.append("userId", self.userId);
+					params.append("userName", self.userName);
+					params.append("userAge", self.userAge);
+
+					axios
+					.post("/insertUser", params)
+					.then(function(response) {
+						if (!(response.data.users == null)) {
+							self.users = response.data.users;
+						} else {
+							alert("ID、氏名、もしくは年齢が空白です");
+							console.log("ID、氏名、もしくは年齢が空白です");
+						}				})
+					.catch(function(error) {
+						console.log("通信失敗。", error)
+					});
+					self.userId = "";
+					self.userName = "";
+					self.userAge = "";
+				}
+			}
+		})
+		</script>
+	</body>
+</html>
